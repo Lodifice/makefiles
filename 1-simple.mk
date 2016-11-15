@@ -22,8 +22,8 @@ OBJ = $(SRC:%.c=%.o)
 # that the rule for your target really builds a corresponding file!
 $(EXE): $(OBJ) $(DEP)
 	$(CC) -o $@ $(OBJ) $(LDFLAGS)
-# Note: it is superfluous to list the dependency files (*.d) as dependencies.
-# Then you can replace $(OBJ) by $^ which contains all dependencies.
+# Note: it is superfluous to list the dependency files (*.d) as prerequisites.
+# Then you can replace $(OBJ) by $^ which contains all prerequisites.
 
 # Include the dependency files in your makefile. These are make rules that, for
 # every object file, list the source file and header files it depends on.
@@ -32,11 +32,11 @@ $(EXE): $(OBJ) $(DEP)
 # Pattern rule to build a dependency file with the help of a C compiler.
 %.d: %.c Makefile
 	$(CC) -MM $(CFLAGS) $*.c > $*.d
-# Note: listing the makefile as a dependency is gimmicky and not needed.
-# Also, better use $@ and $< (first dependency) instead of referring to the
+# Note: listing the makefile as a prerequisite is gimmicky and not needed.
+# Also, better use $@ and $< (first prerequisite) instead of referring to the
 # matched pattern with $*!
 
-# Declare `clean` as a phony target. Make will not care about dependencies and
+# Declare `clean` as a phony target. Make will not care about prerequisites and
 # just execute the associated rule!
 .PHONY: clean
 clean:
